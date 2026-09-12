@@ -174,7 +174,7 @@
       white-space:nowrap;
       gap:.34em;
       line-height:1;
-      font-size:clamp(8px,calc(100vw / 48),34px);
+      font-size:clamp(14px,1.72vw,34px);
     }
     .why-fixed{
       display:inline-block;
@@ -191,8 +191,8 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      width:17em;
-      min-width:17em;
+      width:18em;
+      min-width:18em;
       height:1.62em;
       margin:0 .08em;
       padding:0 .45em;
@@ -476,7 +476,7 @@
         <a class="btn btn-outline" href="#about">About Engineering Review</a>
       </div>
 
-      <div class="why-quote" aria-label="Finding Out Why — Rome, Rocket, Aircraft, High Speed Train, Nuclear Reactor, Power Plant — was not built in a day">
+      <div class="why-quote" aria-label="Finding Out Why — Rome, Rocket, Aircraft, High Speed Train, Nuclear Reactor, Submarine, Power Plant — was not built in a day">
         <div class="why-line">
           <span class="why-quote-mark">“</span>
           <span class="why-fixed">Finding Out Why</span>
@@ -660,11 +660,32 @@
       "Aircraft",
       "High Speed Train",
       "Nuclear Reactor",
+      "Submarine",
       "Power Plant"
     ];
 
     const el = document.getElementById("flipWord");
     if (!el) return;
+
+    const line = document.querySelector(".why-line");
+    const quote = document.querySelector(".why-quote");
+
+    function fitQuoteLine() {
+      if (!line || !quote) return;
+      line.style.transform = "scaleX(1)";
+      line.style.transformOrigin = "center center";
+
+      const available = quote.clientWidth;
+      const needed = line.scrollWidth;
+
+      if (needed > available && available > 0) {
+        const scale = Math.max(0.62, available / needed);
+        line.style.transform = `scaleX(${scale})`;
+      }
+    }
+
+    fitQuoteLine();
+    window.addEventListener("resize", fitQuoteLine);
 
     let index = 0;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -683,6 +704,7 @@
         el.classList.remove("flip-out");
         void el.offsetWidth;
         el.classList.add("flip-in");
+        requestAnimationFrame(fitQuoteLine);
       }, 480);
     }
 
