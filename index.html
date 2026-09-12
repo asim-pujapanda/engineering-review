@@ -174,7 +174,7 @@
       white-space:nowrap;
       gap:.34em;
       line-height:1;
-      font-size:clamp(16px,2.35vw,38px);
+      font-size:clamp(8px,calc(100vw / 48),34px);
     }
     .why-fixed{
       display:inline-block;
@@ -191,10 +191,11 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      min-width:7.5em;
+      width:17em;
+      min-width:17em;
       height:1.62em;
       margin:0 .08em;
-      padding:0 .35em;
+      padding:0 .45em;
       border:1px solid rgba(79,174,255,.78);
       border-radius:4px;
       background:
@@ -260,6 +261,14 @@
 
     @media (prefers-reduced-motion:reduce){
       .flip-word.flip-out,.flip-word.flip-in{animation:none!important}
+    }
+
+    /* Keep the complete statement on ONE line. The font scales down rather than wrapping. */
+    @media (max-width:760px){
+      .hero-inner{min-height:520px}
+      .hero-buttons{left:0;right:0;justify-content:center}
+      .why-line{gap:.22em}
+      .flip-window{width:17em;min-width:17em}
     }
 
     /* GENERIC */
@@ -467,7 +476,7 @@
         <a class="btn btn-outline" href="#about">About Engineering Review</a>
       </div>
 
-      <div class="why-quote" aria-label="Finding Out Why — Rome, Rocket, Aeroplane, High Speed Train, Nuclear Submarine — was not built in a day">
+      <div class="why-quote" aria-label="Finding Out Why — Rome, Rocket, Aircraft, High Speed Train, Nuclear Reactor, Power Plant — was not built in a day">
         <div class="why-line">
           <span class="why-quote-mark">“</span>
           <span class="why-fixed">Finding Out Why</span>
@@ -648,9 +657,10 @@
     const words = [
       "Rome",
       "Rocket",
-      "Aeroplane",
+      "Aircraft",
       "High Speed Train",
-      "Nuclear Submarine"
+      "Nuclear Reactor",
+      "Power Plant"
     ];
 
     const el = document.getElementById("flipWord");
