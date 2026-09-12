@@ -1,544 +1,593 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Engineering Review — clear, rigorous explanations of science, engineering and emerging technology.">
+  <meta name="theme-color" content="#071426">
+  <title>Engineering Review | Science. Engineering. Technology.</title>
 
-    <title>Engineering Review | Science & Engineering Explained</title>
+  <style>
+    :root{
+      --navy:#071426;
+      --navy-2:#0b1d35;
+      --blue:#1687ff;
+      --blue-2:#4db2ff;
+      --ink:#0a1a2f;
+      --muted:#53647a;
+      --line:#dfe7f0;
+      --soft:#f4f7fb;
+      --white:#fff;
+      --max:1240px;
+      --shadow:0 18px 50px rgba(7,20,38,.10);
+    }
 
-    <meta name="description"
-          content="Engineering Review — Scientific articles and engineering explained with clarity.">
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--ink);
+      background:#fff;
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    button,input{font:inherit}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    .container{
+      width:min(calc(100% - 48px),var(--max));
+      margin:auto;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                         Roboto, Helvetica, Arial, sans-serif;
-            background: #ffffff;
-            color: #111111;
-            line-height: 1.6;
-        }
+    /* HEADER */
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      height:78px;
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid #e7edf4;
+    }
+    .nav{
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
+    }
+    .brand{display:flex;align-items:center;gap:13px}
+    .brand-mark{
+      width:34px;height:34px;
+      display:grid;place-items:center;
+      color:#fff;background:var(--navy);
+      clip-path:polygon(50% 0,100% 100%,0 100%);
+      font-weight:800;
+      font-size:15px;
+    }
+    .brand-copy strong{
+      display:block;
+      font-size:22px;
+      letter-spacing:-.7px;
+      line-height:1.05;
+    }
+    .brand-copy span{
+      display:block;
+      color:#617086;
+      font-size:11px;
+      margin-top:4px;
+      letter-spacing:.2px;
+    }
+    .nav-links{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:600}
+    .nav-links a{position:relative;padding:29px 0}
+    .nav-links a.active{color:#0c72dc}
+    .nav-links a.active:after{
+      content:"";position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--blue)
+    }
+    .nav-actions{display:flex;align-items:center;gap:18px}
+    .search{
+      width:22px;height:22px;position:relative;display:block
+    }
+    .search:before{
+      content:"";position:absolute;width:10px;height:10px;border:2px solid var(--ink);
+      border-radius:50%;left:2px;top:2px
+    }
+    .search:after{
+      content:"";position:absolute;width:8px;height:2px;background:var(--ink);
+      transform:rotate(45deg);left:13px;top:14px;border-radius:2px
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      min-height:48px;padding:0 22px;border-radius:6px;font-weight:750;
+      border:1px solid transparent;transition:.2s ease;
+    }
+    .btn-primary{background:var(--blue);color:#fff;box-shadow:0 8px 22px rgba(22,135,255,.22)}
+    .btn-primary:hover{transform:translateY(-2px);background:#0879eb}
+    .btn-dark{background:var(--navy);color:#fff}
+    .btn-outline{border-color:#aebdce;color:#fff;background:transparent}
+    .menu{display:none;border:0;background:none;font-size:28px}
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
+    /* HERO */
+    .hero{
+      position:relative;
+      min-height:650px;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 78% 48%,rgba(31,139,255,.17),transparent 30%),
+        linear-gradient(135deg,#061323,#0b1d35 58%,#102b4d);
+      color:#fff;
+      isolation:isolate;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;inset:0;z-index:-1;opacity:.22;
+      background-image:
+        linear-gradient(rgba(102,169,224,.25) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(102,169,224,.25) 1px,transparent 1px);
+      background-size:54px 54px;
+      mask-image:linear-gradient(to right,black 20%,transparent 95%);
+    }
+    .hero:after{
+      content:"";
+      position:absolute;right:-10%;top:-20%;width:60%;height:150%;
+      background:linear-gradient(110deg,transparent 25%,rgba(77,178,255,.08),transparent 60%);
+      transform:rotate(8deg);
+      z-index:-1;
+    }
+    .hero-inner{
+      min-height:650px;
+      display:grid;
+      grid-template-columns:1.03fr .97fr;
+      align-items:center;
+      gap:20px;
+      position:relative;
+    }
+    .eyebrow{
+      display:flex;align-items:center;gap:12px;
+      color:#7fc7ff;font-size:12px;font-weight:800;letter-spacing:3px;
+      text-transform:uppercase;margin-bottom:20px;
+    }
+    .eyebrow:before{content:"";width:3px;height:24px;background:var(--blue-2)}
+    h1{
+      font-size:clamp(50px,6vw,82px);
+      line-height:.98;
+      letter-spacing:-4px;
+      margin:0;
+      max-width:760px;
+    }
+    h1 .accent{color:#35a8ff}
+    .hero-copy{
+      color:#b8c9dc;font-size:19px;max-width:620px;margin:27px 0 30px;
+    }
+    .hero-buttons{display:flex;gap:14px;flex-wrap:wrap}
+    .hero-visual{height:520px;position:relative;display:grid;place-items:center}
+    .turbine{
+      width:min(620px,100%);
+      filter:drop-shadow(0 30px 45px rgba(0,0,0,.38));
+    }
+    .hero-note{
+      position:absolute;right:4%;top:12%;
+      color:#8ea5be;font-size:10px;letter-spacing:3px;line-height:2.1;
+      text-align:right;text-transform:uppercase;
+    }
+    .hero-tag{
+      position:absolute;right:8%;bottom:15%;
+      color:#9db4cc;font-size:10px;letter-spacing:3px;text-transform:uppercase;
+      display:flex;align-items:center;gap:12px;
+    }
+    .hero-tag:after{content:"";width:38px;height:1px;background:#76bdf3}
 
-        /* HEADER */
+    /* GENERIC */
+    section{padding:82px 0}
+    .section-top{display:flex;justify-content:space-between;align-items:end;gap:25px;margin-bottom:26px}
+    .section-label{
+      color:#176fc1;font-size:12px;font-weight:850;letter-spacing:3px;text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    .section-title{font-size:39px;letter-spacing:-1.8px;line-height:1.05;margin:0}
+    .section-link{color:#087be9;font-weight:750;font-size:14px;white-space:nowrap}
 
-        header {
-            width: 100%;
-            border-bottom: 1px solid #e8e8e8;
-            background: rgba(255,255,255,0.96);
-        }
+    /* FEATURED */
+    .featured{background:#fff}
+    .featured-card{
+      display:grid;grid-template-columns:1.02fr .98fr;min-height:390px;
+      border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;
+      box-shadow:var(--shadow);
+    }
+    .feature-image{
+      position:relative;min-height:390px;overflow:hidden;
+      background:
+        radial-gradient(circle at 50% 50%,rgba(48,159,255,.30),transparent 28%),
+        linear-gradient(135deg,#0b1a2c,#1b3d60);
+    }
+    .feature-image:before{
+      content:"";position:absolute;inset:0;opacity:.24;
+      background-image:
+        linear-gradient(rgba(160,210,245,.32) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(160,210,245,.32) 1px,transparent 1px);
+      background-size:34px 34px;
+    }
+    .feature-image:after{
+      content:"";position:absolute;width:230px;height:230px;border-radius:50%;
+      left:50%;top:50%;transform:translate(-50%,-50%);
+      border:3px solid rgba(127,199,255,.6);
+      box-shadow:
+        0 0 0 25px rgba(127,199,255,.08),
+        0 0 0 65px rgba(127,199,255,.05),
+        0 0 80px rgba(32,145,255,.25);
+    }
+    .feature-art{
+      position:absolute;left:50%;top:50%;width:260px;height:260px;transform:translate(-50%,-50%);
+      border-radius:50%;
+      border:8px solid #7899b8;
+      box-shadow:inset 0 0 0 12px #203b56, inset 0 0 0 25px #9cb1c4;
+    }
+    .feature-art i{
+      position:absolute;left:50%;top:50%;width:82px;height:82px;transform:translate(-50%,-50%);
+      border-radius:50%;background:radial-gradient(circle at 35% 30%,#b9d0df,#2a3f50 58%,#0b1622);
+      box-shadow:0 0 0 10px rgba(7,20,38,.65)
+    }
+    .feature-content{padding:52px 54px;display:flex;flex-direction:column;justify-content:center}
+    .meta{font-size:11px;color:#147fe2;font-weight:850;letter-spacing:2px;text-transform:uppercase}
+    .feature-content h3{font-size:40px;line-height:1.05;letter-spacing:-1.8px;margin:13px 0 16px}
+    .feature-content p{color:var(--muted);font-size:17px;max-width:540px;margin:0 0 24px}
+    .article-meta{display:flex;gap:18px;flex-wrap:wrap;color:#607086;font-size:12px;margin-bottom:23px}
+    .article-meta span{display:inline-flex;align-items:center;gap:7px}
+    .read-link{color:#087be9;font-weight:800;font-size:14px}
 
-        .nav {
-            max-width: 1200px;
-            margin: auto;
-            height: 76px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-        }
+    /* TOPICS */
+    .topics{background:#f7f9fc}
+    .topic-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .topic{
+      min-height:175px;background:#fff;border:1px solid var(--line);padding:27px 23px;
+      border-radius:7px;display:flex;flex-direction:column;justify-content:space-between;
+      transition:.2s ease;
+    }
+    .topic:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#bcd9f4}
+    .topic-icon{font-size:28px;color:var(--blue)}
+    .topic h4{font-size:17px;line-height:1.15;margin:20px 0 0;letter-spacing:-.4px}
+    .topic a{font-size:12px;color:#087be9;font-weight:800;margin-top:16px}
 
-        .logo {
-            font-size: 21px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
+    /* LATEST */
+    .latest-list{border-top:1px solid var(--line)}
+    .latest-item{
+      display:grid;grid-template-columns:150px 1fr 130px;gap:30px;align-items:center;
+      padding:27px 0;border-bottom:1px solid var(--line)
+    }
+    .latest-item .type{font-size:10px;letter-spacing:1.7px;font-weight:850;color:#68798e;text-transform:uppercase}
+    .latest-item h3{margin:0 0 5px;font-size:22px;letter-spacing:-.6px}
+    .latest-item p{margin:0;color:var(--muted);font-size:14px}
+    .latest-arrow{text-align:right;color:#087be9;font-weight:800;font-size:13px}
 
-        .logo span {
-            font-weight: 400;
-            color: #777777;
-        }
+    /* NUMBERS */
+    .numbers{background:#f2f6fa;border-top:1px solid #e6edf4;border-bottom:1px solid #e6edf4}
+    .number-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+    .number{padding:12px 35px;border-right:1px solid #cbd8e5}
+    .number:first-child{padding-left:0}
+    .number:last-child{border-right:0}
+    .number strong{display:block;font-size:42px;color:#0d78dd;letter-spacing:-2px}
+    .number span{display:block;color:#56677c;font-size:14px;margin-top:3px}
 
-        nav {
-            display: flex;
-            gap: 30px;
-            font-size: 14px;
-            color: #555555;
-        }
+    /* NEWSLETTER */
+    .newsletter{
+      color:#fff;
+      background:
+        radial-gradient(circle at 90% 20%,rgba(48,160,255,.16),transparent 28%),
+        linear-gradient(135deg,#09182b,#0b2848);
+      position:relative;overflow:hidden
+    }
+    .newsletter:before{
+      content:"";position:absolute;inset:0;opacity:.12;
+      background-image:linear-gradient(rgba(120,180,230,.3) 1px,transparent 1px),linear-gradient(90deg,rgba(120,180,230,.3) 1px,transparent 1px);
+      background-size:45px 45px
+    }
+    .newsletter-inner{position:relative;display:flex;justify-content:space-between;align-items:center;gap:50px}
+    .newsletter h2{font-size:38px;letter-spacing:-1.5px;margin:0 0 7px}
+    .newsletter p{margin:0;color:#b7c9dc}
+    .signup{display:flex;min-width:min(520px,100%);gap:8px}
+    .signup input{flex:1;min-width:0;height:52px;border-radius:6px;border:0;padding:0 17px;outline:none}
+    .signup button{border:0;height:52px;padding:0 22px;border-radius:6px;background:var(--blue);color:#fff;font-weight:800;cursor:pointer}
 
-        nav a:hover {
-            color: #111111;
-        }
+    /* FOOTER */
+    footer{background:#06111f;color:#fff;padding:58px 0 20px}
+    .footer-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1.2fr;gap:55px;padding-bottom:45px}
+    .footer-brand{font-size:22px;font-weight:800}
+    footer p, footer a{color:#91a3b8;font-size:13px}
+    .footer-heading{font-weight:800;margin-bottom:14px}
+    .footer-links{display:grid;gap:8px}
+    .footer-bottom{border-top:1px solid #1c2c3e;padding-top:20px;display:flex;justify-content:space-between;color:#6f8298;font-size:11px}
 
-        /* HERO */
-
-        .hero {
-            max-width: 1200px;
-            margin: auto;
-            padding: 110px 24px 100px;
-        }
-
-        .eyebrow {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #777777;
-            margin-bottom: 22px;
-        }
-
-        .hero h1 {
-            max-width: 850px;
-            font-size: clamp(48px, 7vw, 86px);
-            line-height: 1.02;
-            letter-spacing: -4px;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-
-        .hero p {
-            max-width: 650px;
-            font-size: 20px;
-            color: #666666;
-            line-height: 1.7;
-            margin-bottom: 36px;
-        }
-
-        .button {
-            display: inline-block;
-            background: #111111;
-            color: white;
-            padding: 14px 24px;
-            border-radius: 5px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        .button:hover {
-            background: #333333;
-        }
-
-        /* FEATURED */
-
-        .section {
-            max-width: 1200px;
-            margin: auto;
-            padding: 80px 24px;
-        }
-
-        .section-title {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            border-bottom: 1px solid #dddddd;
-            padding-bottom: 18px;
-            margin-bottom: 35px;
-        }
-
-        .section-title h2 {
-            font-size: 28px;
-            letter-spacing: -1px;
-        }
-
-        .section-title span {
-            font-size: 13px;
-            color: #888888;
-        }
-
-        .featured {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            min-height: 430px;
-            border: 1px solid #e2e2e2;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .featured-image {
-            background: linear-gradient(135deg, #eeeeee, #d7d7d7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777777;
-            font-size: 13px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .featured-content {
-            padding: 55px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .category {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #777777;
-            margin-bottom: 18px;
-        }
-
-        .featured-content h3 {
-            font-size: 36px;
-            line-height: 1.15;
-            letter-spacing: -1.5px;
-            margin-bottom: 20px;
-        }
-
-        .featured-content p {
-            color: #666666;
-            margin-bottom: 25px;
-        }
-
-        /* ARTICLES */
-
-        .articles {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .article-card {
-            border-top: 1px solid #cccccc;
-            padding-top: 22px;
-        }
-
-        .article-card h3 {
-            font-size: 21px;
-            line-height: 1.3;
-            margin: 12px 0;
-            letter-spacing: -0.4px;
-        }
-
-        .article-card p {
-            color: #777777;
-            font-size: 14px;
-        }
-
-        .article-meta {
-            color: #999999;
-            font-size: 12px;
-        }
-
-        /* TOPICS */
-
-        .topics {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-
-        .topic {
-            border: 1px solid #dddddd;
-            padding: 24px;
-            border-radius: 7px;
-            font-size: 15px;
-            transition: 0.2s;
-        }
-
-        .topic:hover {
-            border-color: #999999;
-            transform: translateY(-2px);
-        }
-
-        /* ABOUT */
-
-        .about {
-            border-top: 1px solid #dddddd;
-            border-bottom: 1px solid #dddddd;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 60px;
-            padding: 80px 0;
-        }
-
-        .about h2 {
-            font-size: 32px;
-            letter-spacing: -1px;
-        }
-
-        .about p {
-            color: #666666;
-            font-size: 17px;
-            max-width: 700px;
-        }
-
-        /* FOOTER */
-
-        footer {
-            max-width: 1200px;
-            margin: auto;
-            padding: 45px 24px;
-            display: flex;
-            justify-content: space-between;
-            color: #888888;
-            font-size: 13px;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 800px) {
-
-            nav {
-                display: none;
-            }
-
-            .hero {
-                padding: 80px 24px;
-            }
-
-            .hero h1 {
-                letter-spacing: -2px;
-            }
-
-            .featured {
-                grid-template-columns: 1fr;
-            }
-
-            .featured-image {
-                min-height: 250px;
-            }
-
-            .featured-content {
-                padding: 35px;
-            }
-
-            .articles {
-                grid-template-columns: 1fr;
-            }
-
-            .topics {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .about {
-                grid-template-columns: 1fr;
-                gap: 25px;
-                padding: 60px 24px;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 10px;
-            }
-        }
-    </style>
+    /* RESPONSIVE */
+    @media(max-width:1000px){
+      .nav-links{display:none}
+      .menu{display:block}
+      .hero-inner{grid-template-columns:1fr}
+      .hero{min-height:auto}
+      .hero-inner{padding:80px 0 50px}
+      .hero-visual{position:absolute;right:-18%;top:100px;width:60%;opacity:.28;pointer-events:none}
+      .hero-copy{max-width:650px}
+      .topic-grid{grid-template-columns:repeat(2,1fr)}
+      .featured-card{grid-template-columns:1fr}
+      .feature-image{min-height:300px}
+      .newsletter-inner{flex-direction:column;align-items:flex-start}
+      .signup{min-width:0;width:100%}
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:650px){
+      .container{width:min(calc(100% - 30px),var(--max))}
+      header{height:68px}
+      .brand-copy strong{font-size:18px}
+      .brand-copy span{font-size:9px}
+      .nav-actions .search,.nav-actions .btn{display:none}
+      .hero-inner{padding:65px 0 55px}
+      h1{font-size:48px;letter-spacing:-2.5px}
+      .hero-copy{font-size:16px}
+      .hero-visual{right:-35%;top:160px;width:90%}
+      section{padding:60px 0}
+      .section-title{font-size:32px}
+      .section-top{align-items:start}
+      .featured-content{padding:35px 25px}
+      .feature-content h3{font-size:31px}
+      .topic-grid{grid-template-columns:1fr 1fr;gap:10px}
+      .topic{min-height:155px;padding:20px 16px}
+      .latest-item{grid-template-columns:1fr;gap:8px}
+      .latest-arrow{text-align:left}
+      .number-grid{grid-template-columns:1fr 1fr}
+      .number{padding:15px 12px;border-right:0;border-bottom:1px solid #cbd8e5}
+      .number:first-child{padding-left:12px}
+      .number strong{font-size:34px}
+      .newsletter h2{font-size:31px}
+      .signup{flex-direction:column}
+      .signup input,.signup button{width:100%}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:30px}
+      .footer-bottom{flex-direction:column;gap:8px}
+    }
+  </style>
 </head>
 
 <body>
-
 <header>
-    <div class="nav">
-        <div class="logo">
-            ENGINEERING <span>REVIEW</span>
-        </div>
+  <div class="container nav">
+    <a class="brand" href="#">
+      <span class="brand-mark">▲</span>
+      <span class="brand-copy">
+        <strong>Engineering Review</strong>
+        <span>Ideas. Science. Real-World Impact.</span>
+      </span>
+    </a>
 
-        <nav>
-            <a href="#articles">Articles</a>
-            <a href="#explained">Explained</a>
-            <a href="#topics">Topics</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
+    <nav class="nav-links">
+      <a class="active" href="#home">Home</a>
+      <a href="#articles">Articles</a>
+      <a href="#topics">Topics</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a class="search" href="#articles" aria-label="Search"></a>
+      <a class="btn btn-dark" href="#newsletter">Subscribe</a>
+      <button class="menu" aria-label="Menu">☰</button>
     </div>
+  </div>
 </header>
 
-<main>
+<main id="home">
 
-    <!-- HERO -->
-
-    <section class="hero">
-        <div class="eyebrow">Science · Engineering · Technology</div>
-
-        <h1>Engineering, explained with clarity.</h1>
-
-        <p>
-            Engineering Review explores scientific ideas, engineering principles
-            and emerging technologies through thoughtful articles and accessible
-            explanations.
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <div class="eyebrow">Engineering Explained</div>
+        <h1>Understanding the Science Behind <span class="accent">Modern Engineering</span></h1>
+        <p class="hero-copy">
+          In-depth articles, technical insights, and real-world applications across
+          mechanical, electrical, materials, semiconductor and emerging technologies.
         </p>
-
-        <a class="button" href="#articles">
-            Explore Articles →
-        </a>
-    </section>
-
-
-    <!-- FEATURED ARTICLE -->
-
-    <section class="section" id="explained">
-
-        <div class="section-title">
-            <h2>Featured</h2>
-            <span>Editor's selection</span>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#articles">Explore Articles →</a>
+          <a class="btn btn-outline" href="#about">About Engineering Review</a>
         </div>
+      </div>
 
-        <div class="featured">
+      <div class="hero-visual" aria-hidden="true">
+        <svg class="turbine" viewBox="0 0 720 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="metal" x1="0" x2="1">
+              <stop offset="0" stop-color="#4e718f"/>
+              <stop offset=".45" stop-color="#b4d0e4"/>
+              <stop offset="1" stop-color="#244761"/>
+            </linearGradient>
+            <radialGradient id="hub">
+              <stop offset="0" stop-color="#d9edf9"/>
+              <stop offset=".35" stop-color="#7297b2"/>
+              <stop offset="1" stop-color="#10283e"/>
+            </radialGradient>
+          </defs>
+          <g fill="none" stroke="#7db8dd" opacity=".48">
+            <ellipse cx="465" cy="240" rx="190" ry="170" stroke-width="2"/>
+            <ellipse cx="465" cy="240" rx="145" ry="145" stroke-width="1"/>
+            <ellipse cx="465" cy="240" rx="105" ry="105" stroke-width="1"/>
+            <path d="M280 240h370M465 55v370M335 110l260 260M595 110L335 370" stroke-dasharray="5 8"/>
+          </g>
+          <g transform="translate(465 240)">
+            <ellipse rx="195" ry="150" fill="rgba(10,30,48,.55)" stroke="url(#metal)" stroke-width="12"/>
+            <ellipse rx="160" ry="125" fill="none" stroke="#6e94ac" stroke-width="7"/>
+            <ellipse rx="125" ry="100" fill="none" stroke="#a5c2d5" stroke-width="4"/>
+            <circle r="54" fill="url(#hub)" stroke="#b7d1e0" stroke-width="5"/>
+            <g fill="url(#metal)" opacity=".95">
+              <path d="M0-52 C-45-115-92-126-112-102 C-72-80-43-43-24-10Z"/>
+              <path d="M37-37 C88-84 100-122 70-136 C57-90 38-57 9-22Z"/>
+              <path d="M52 0 C112-18 142-5 144 27 C93 32 56 23 20 12Z"/>
+              <path d="M35 39 C87 80 95 118 66 130 C52 87 28 58 7 28Z"/>
+              <path d="M0 52 C-42 113-89 127-111 102 C-72 80-43 42-24 10Z"/>
+              <path d="M-37 37 C-89 83-101 122-71 136 C-57 91-37 57-9 22Z"/>
+              <path d="M-52 0 C-111 18-142 6-144-26 C-93-31-56-22-20-11Z"/>
+              <path d="M-36-38 C-88-81-95-118-67-131 C-52-87-28-57-8-27Z"/>
+            </g>
+            <circle r="18" fill="#d5e6f0"/>
+          </g>
+        </svg>
+        <div class="hero-note">Analyze<br>Learn<br>Build<br>Improve</div>
+        <div class="hero-tag">Science Today <span></span> A Better Tomorrow</div>
+      </div>
+    </div>
+  </section>
 
-            <div class="featured-image">
-                Scientific Illustration
-            </div>
-
-            <div class="featured-content">
-
-                <div class="category">
-                    Engineering Explained
-                </div>
-
-                <h3>
-                    Understanding the science behind modern engineering
-                </h3>
-
-                <p>
-                    Discover how fundamental scientific principles become
-                    real-world engineering solutions.
-                </p>
-
-                <a class="button" href="#articles">
-                    Read Article →
-                </a>
-
-            </div>
-
+  <section class="featured" id="articles">
+    <div class="container">
+      <div class="section-top">
+        <div>
+          <div class="section-label">Featured Article</div>
         </div>
+        <a class="section-link" href="#articles">View Articles →</a>
+      </div>
 
-    </section>
-
-
-    <!-- ARTICLES -->
-
-    <section class="section" id="articles">
-
-        <div class="section-title">
-            <h2>Latest Articles</h2>
-            <span>Explore the latest thinking</span>
+      <article class="featured-card">
+        <div class="feature-image">
+          <div class="feature-art"><i></i></div>
         </div>
-
-        <div class="articles">
-
-            <article class="article-card">
-                <div class="article-meta">
-                    ENGINEERING · 5 MIN READ
-                </div>
-
-                <h3>
-                    How Engineers Turn Scientific Principles Into Technology
-                </h3>
-
-                <p>
-                    A look at the connection between fundamental science
-                    and practical engineering.
-                </p>
-            </article>
-
-
-            <article class="article-card">
-                <div class="article-meta">
-                    TECHNOLOGY · 6 MIN READ
-                </div>
-
-                <h3>
-                    Why Understanding Materials Matters in Engineering
-                </h3>
-
-                <p>
-                    Exploring how material properties influence engineering
-                    design and performance.
-                </p>
-            </article>
-
-
-            <article class="article-card">
-                <div class="article-meta">
-                    SCIENCE · 7 MIN READ
-                </div>
-
-                <h3>
-                    From Theory to Application: The Engineering Mindset
-                </h3>
-
-                <p>
-                    Understanding how scientific knowledge becomes useful
-                    technology.
-                </p>
-            </article>
-
+        <div class="feature-content">
+          <div class="meta">Aerospace</div>
+          <h3>How Jet Engines Achieve High Efficiency</h3>
+          <p>
+            A detailed look into the thermodynamics, materials and design innovations
+            that enable modern jet engines to deliver exceptional performance.
+          </p>
+          <div class="article-meta">
+            <span>◷ 8 min read</span>
+            <span>• Engineering Review</span>
+          </div>
+          <a class="read-link" href="#articles">Read Article →</a>
         </div>
+      </article>
+    </div>
+  </section>
 
-    </section>
-
-
-    <!-- TOPICS -->
-
-    <section class="section" id="topics">
-
-        <div class="section-title">
-            <h2>Explore Topics</h2>
-            <span>Browse by discipline</span>
+  <section class="topics" id="topics">
+    <div class="container">
+      <div class="section-top">
+        <div>
+          <div class="section-label">Explore Topics</div>
+          <h2 class="section-title">Explore engineering by discipline.</h2>
         </div>
+        <a class="section-link" href="#topics">View All Topics →</a>
+      </div>
 
-        <div class="topics">
+      <div class="topic-grid">
+        <div class="topic"><div class="topic-icon">⚙</div><h4>Mechanical Engineering</h4><a href="#articles">Articles →</a></div>
+        <div class="topic"><div class="topic-icon">⌁</div><h4>Electrical &amp; Electronics</h4><a href="#articles">Articles →</a></div>
+        <div class="topic"><div class="topic-icon">◇</div><h4>Materials Science</h4><a href="#articles">Articles →</a></div>
+        <div class="topic"><div class="topic-icon">▣</div><h4>Semiconductor Technology</h4><a href="#articles">Articles →</a></div>
+        <div class="topic"><div class="topic-icon">✦</div><h4>Aerospace Engineering</h4><a href="#articles">Articles →</a></div>
+        <div class="topic"><div class="topic-icon">◒</div><h4>Energy &amp; Sustainability</h4><a href="#articles">Articles →</a></div>
+        <div class="topic"><div class="topic-icon">⌘</div><h4>Computer &amp; AI</h4><a href="#articles">Articles →</a></div>
+        <div class="topic"><div class="topic-icon">＋</div><h4>Emerging Technologies</h4><a href="#articles">Articles →</a></div>
+      </div>
+    </div>
+  </section>
 
-            <div class="topic">Mechanical Engineering</div>
-            <div class="topic">Electrical & Electronics</div>
-            <div class="topic">Materials Science</div>
-            <div class="topic">Semiconductor Technology</div>
-            <div class="topic">Aerospace Engineering</div>
-            <div class="topic">Energy & Environment</div>
-            <div class="topic">Computer & AI</div>
-            <div class="topic">Emerging Technologies</div>
-
+  <section class="latest">
+    <div class="container">
+      <div class="section-top">
+        <div>
+          <div class="section-label">Latest Articles</div>
+          <h2 class="section-title">The latest engineering thinking.</h2>
         </div>
+        <a class="section-link" href="#articles">Explore All →</a>
+      </div>
 
-    </section>
+      <div class="latest-list">
+        <article class="latest-item">
+          <div class="type">Engineering · 5 min</div>
+          <div><h3>How Engineers Turn Scientific Principles Into Technology</h3><p>The connection between fundamental science and practical engineering.</p></div>
+          <div class="latest-arrow">Read →</div>
+        </article>
+        <article class="latest-item">
+          <div class="type">Materials · 6 min</div>
+          <div><h3>Why Understanding Materials Matters in Engineering</h3><p>How material properties influence engineering design and performance.</p></div>
+          <div class="latest-arrow">Read →</div>
+        </article>
+        <article class="latest-item">
+          <div class="type">Science · 7 min</div>
+          <div><h3>From Theory to Application: The Engineering Mindset</h3><p>Understanding how scientific knowledge becomes useful technology.</p></div>
+          <div class="latest-arrow">Read →</div>
+        </article>
+      </div>
+    </div>
+  </section>
 
+  <section class="numbers">
+    <div class="container">
+      <div class="section-label">The Platform</div>
+      <div class="number-grid">
+        <div class="number"><strong>8</strong><span>Core engineering domains</span></div>
+        <div class="number"><strong>01</strong><span>Clear scientific perspective</span></div>
+        <div class="number"><strong>∞</strong><span>Ideas worth exploring</span></div>
+        <div class="number"><strong>24/7</strong><span>Open engineering knowledge</span></div>
+      </div>
+    </div>
+  </section>
 
-    <!-- ABOUT -->
+  <section class="newsletter" id="newsletter">
+    <div class="container newsletter-inner">
+      <div>
+        <div class="section-label" style="color:#70bfff">Stay Updated</div>
+        <h2>Get the Latest Engineering Insights</h2>
+        <p>Join the Engineering Review newsletter and never miss a new article.</p>
+      </div>
+      <form class="signup" onsubmit="event.preventDefault(); alert('Newsletter signup will be connected soon.');">
+        <input type="email" placeholder="Enter your email address" aria-label="Email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
 
-    <section class="section" id="about">
-
-        <div class="about">
-
-            <div>
-                <h2>About Engineering Review</h2>
-            </div>
-
-            <div>
-                <p>
-                    Engineering Review is a scientific knowledge platform
-                    created to explore engineering, science and technology
-                    in a clear and accessible way.
-                </p>
-
-                <br>
-
-                <p>
-                    Founded by <strong>Asim Pujapanda</strong>,
-                    Scientist / Engineer, the platform aims to make
-                    complex engineering ideas easier to understand while
-                    encouraging curiosity and scientific thinking.
-                </p>
-            </div>
-
-        </div>
-
-    </section>
+  <section id="about">
+    <div class="container">
+      <div class="section-label">About Engineering Review</div>
+      <h2 class="section-title">Science made clearer. Engineering made easier to understand.</h2>
+      <p style="max-width:780px;color:#596a7f;font-size:18px;margin-top:24px">
+        Engineering Review is a scientific knowledge platform focused on explaining
+        engineering principles, scientific ideas and emerging technologies in a clear,
+        accessible and technically grounded way.
+      </p>
+    </div>
+  </section>
 
 </main>
 
-
 <footer id="contact">
-
-    <div>
-        © 2026 Engineering Review
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Engineering Review</div>
+        <p>Ideas. Science. Real-World Impact.</p>
+        <p>A knowledge platform for engineers, researchers, students and curious minds.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <div class="footer-links">
+          <a href="#home">Home</a><a href="#articles">Articles</a><a href="#topics">Topics</a><a href="#about">About</a><a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Topics</div>
+        <div class="footer-links">
+          <a href="#topics">Mechanical</a><a href="#topics">Electrical &amp; Electronics</a><a href="#topics">Materials</a><a href="#topics">Semiconductor</a><a href="#topics">Aerospace</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">The Mission</div>
+        <p>Engineering knowledge should be understandable, useful and worth exploring.</p>
+        <p>— Engineering Review</p>
+      </div>
     </div>
-
-    <div>
-        Contact · Engineering Review
+    <div class="footer-bottom">
+      <span>© 2026 Engineering Review. All rights reserved.</span>
+      <span>Privacy · Terms · Sitemap</span>
     </div>
-
+  </div>
 </footer>
-
 </body>
 </html>
