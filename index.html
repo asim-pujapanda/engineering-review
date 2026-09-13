@@ -176,14 +176,19 @@
     }
 
     .why-entry-line{
-      display:grid;
-      grid-template-columns:minmax(0, 1fr) max-content minmax(0, 1fr);
+      display:flex;
       align-items:center;
-      width:100%;
+      justify-content:center;
+      width:max-content;
+      max-width:100%;
+      margin:0 auto;
       min-width:0;
       line-height:1;
       white-space:nowrap;
-      column-gap:12px;
+      gap:14px;
+      overflow:hidden;
+      --entry-font-size:46px;
+      --suffix-font-size:27px;
     }
 
     .flip-window{
@@ -192,8 +197,8 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      width:max-content;
-      min-width:max-content;
+      width:auto;
+      min-width:0;
       height:1.78em;
       margin:0;
       padding:0 18px;
@@ -225,7 +230,7 @@
       line-height:1;
       transform-origin:50% 50%;
       font-family:"Courier New","Courier",monospace;
-      font-size:1.38em;
+      font-size:var(--entry-font-size);
       font-weight:700;
       letter-spacing:-.025em;
       text-shadow:0 0 7px rgba(18,140,255,.10);
@@ -244,10 +249,9 @@
     }
 
     .why-entry-suffix{
-      grid-column:3;
       min-width:0;
       text-align:left;
-      font-size:clamp(17px,1.55vw,28px);
+      font-size:var(--suffix-font-size);
       font-weight:700;
       color:#0a1d34;
       letter-spacing:-.025em;
@@ -288,30 +292,23 @@
 
     @media (max-width:700px){
       .why-quote{
-        width:100%;
-        padding:34px 14px 30px;
+        width:96%;
+        padding:32px 12px 29px;
       }
       .why-entry-line{
-        display:flex;
-        justify-content:center;
-        gap:8px;
-        overflow:hidden;
-        font-size:clamp(17px,4vw,25px);
+        width:100%;
+        gap:7px;
+        --entry-font-size:28px;
+        --suffix-font-size:16px;
       }
       .flip-window{
         flex:0 0 auto;
-        max-width:52%;
         padding-left:12px;
         padding-right:12px;
       }
-      .flip-word{
-        font-size:1.18em;
-      }
       .why-entry-suffix{
         flex:0 1 auto;
-        min-width:0;
-        font-size:clamp(13px,3.35vw,21px);
-        text-align:left;
+        font-size:var(--suffix-font-size);
       }
     }
 
@@ -713,7 +710,7 @@
       "HIGH-SPEED RAIL",
       "NUCLEAR REACTOR",
       "SUBMARINE",
-      "POWER PLANT"
+      "POWER PLANT",
     ];
 
     const el = document.getElementById("flipWord");
@@ -723,9 +720,11 @@
     const quote = document.querySelector(".why-quote");
     const flipWindow = document.querySelector(".flip-window");
 
-    function sizeFlipWindowToLongestEntry() {
-      if (!flipWindow || !el) return;
+    const BASE_ENTRY_SIZE = 46;
+    const BASE_SUFFIX_SIZE = 27;
 
+    function measureLongestWord(fontSize) {
+      if (!el) return 0;
       const probe = document.createElement("span");
       const style = getComputedStyle(el);
 
@@ -733,31 +732,54 @@
       probe.style.visibility = "hidden";
       probe.style.whiteSpace = "nowrap";
       probe.style.fontFamily = '"Courier New","Courier",monospace';
-      probe.style.fontWeight = style.fontWeight;
-      probe.style.fontSize = style.fontSize;
+      probe.style.fontWeight = "700";
+      probe.style.fontSize = `${fontSize}px`;
       probe.style.letterSpacing = style.letterSpacing;
       probe.textContent = words.reduce((longest, word) =>
         word.length > longest.length ? word : longest, "");
 
       document.body.appendChild(probe);
-      const longestWidth = Math.ceil(probe.getBoundingClientRect().width);
+      const width = Math.ceil(probe.getBoundingClientRect().width);
       probe.remove();
-
-      // Just enough room for the longest entry + equal visual breathing room.
-      const target = longestWidth + 36;
-      flipWindow.style.width = `${target}px`;
-      flipWindow.style.minWidth = `${target}px`;
+      return width;
     }
 
-    function fitQuoteLine() {
-      if (!entryLine || !quote) return;
+    function fitQuoteComposition() {
+      if (!entryLine || !quote || !flipWindow) return;
 
-      sizeFlipWindowToLongestEntry();
+      let entrySize = BASE_ENTRY_SIZE;
+      let suffixSize = BASE_SUFFIX_SIZE;
+
+      entryLine.style.setProperty("--entry-font-size", `${entrySize}px`);
+      entryLine.style.setProperty("--suffix-font-size", `${suffixSize}px`);
+
+      const longestWidth = measureLongestWord(entrySize);
+      const boxWidth = longestWidth + 36;
+      flipWindow.style.width = `${boxWidth}px`;
+      flipWindow.style.minWidth = `${boxWidth}px`;
+
+      const available = quote.clientWidth - 70;
+      let needed = entryLine.scrollWidth;
+
+      if (needed > available && available > 0) {
+        const scale = Math.max(0.74, available / needed);
+        entrySize = Math.floor(entrySize * scale);
+        suffixSize = Math.floor(suffixSize * scale);
+
+        entryLine.style.setProperty("--entry-font-size", `${entrySize}px`);
+        entryLine.style.setProperty("--suffix-font-size", `${suffixSize}px`);
+
+        const resizedLongestWidth = measureLongestWord(entrySize);
+        const resizedBoxWidth = resizedLongestWidth + 36;
+        flipWindow.style.width = `${resizedBoxWidth}px`;
+        flipWindow.style.minWidth = `${resizedBoxWidth}px`;
+      }
+
       entryLine.style.transform = "none";
     }
 
-    fitQuoteLine();
-    window.addEventListener("resize", fitQuoteLine);
+    fitQuoteComposition();
+    window.addEventListener("resize", fitQuoteComposition);
 
     let index = 0;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -776,7 +798,7 @@
         el.classList.remove("flip-out");
         void el.offsetWidth;
         el.classList.add("flip-in");
-        requestAnimationFrame(fitQuoteLine);
+        requestAnimationFrame(fitQuoteComposition);
       }, 480);
     }
 
