@@ -155,54 +155,38 @@
       z-index:3;
     }
 
-    /* Centered flip-board quote */
+    /* Editorial flip quote */
     .why-quote{
       width:100%;
       text-align:center;
-      font-family:"Courier New",Courier,monospace;
+      font-family:"Courier New","Courier",monospace;
       font-weight:700;
-      letter-spacing:0;
       color:#f7fbff;
       user-select:none;
-      transform:translateY(-6px);
+      transform:translateY(8px);
     }
-    .why-line{
+    .why-entry-line{
       display:flex;
       align-items:center;
       justify-content:center;
-      flex-wrap:nowrap;
       white-space:nowrap;
-      gap:.34em;
       line-height:1;
-      font-size:clamp(14px,1.72vw,34px);
     }
-    .why-fixed{
-      display:inline-block;
-      white-space:nowrap;
-    }
-    .why-quote-mark{
-      color:#2e9cff;
-      font-size:1.18em;
-      line-height:.8;
-    }
-
     .flip-window{
       position:relative;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      width:15.5em;
-      min-width:15.5em;
-      height:1.62em;
-      margin:0 .08em;
-      padding:0 .45em;
+      width:max-content;
+      min-width:0;
+      box-sizing:border-box;
+      height:1.72em;
+      margin:0 .16em;
+      padding:0 .42em;
       border:1px solid rgba(79,174,255,.78);
-      border-radius:4px;
-      background:
-        linear-gradient(180deg,rgba(35,91,137,.26),rgba(4,23,42,.58));
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.07),
-        0 0 24px rgba(22,135,255,.10);
+      border-radius:5px;
+      background:linear-gradient(180deg,rgba(35,91,137,.28),rgba(4,23,42,.60));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 0 26px rgba(22,135,255,.12);
       color:#39a8ff;
       overflow:hidden;
       perspective:700px;
@@ -222,13 +206,10 @@
       white-space:nowrap;
       line-height:1;
       transform-origin:50% 50%;
+      font-size:1em;
     }
-    .flip-word.flip-out{
-      animation:flipOut .48s cubic-bezier(.55,.05,.68,.19) forwards;
-    }
-    .flip-word.flip-in{
-      animation:flipIn .48s cubic-bezier(.22,.61,.36,1) forwards;
-    }
+    .flip-word.flip-out{animation:flipOut .48s cubic-bezier(.55,.05,.68,.19) forwards}
+    .flip-word.flip-in{animation:flipIn .48s cubic-bezier(.22,.61,.36,1) forwards}
     @keyframes flipOut{
       0%{transform:rotateX(0deg);opacity:1}
       100%{transform:rotateX(-90deg);opacity:0}
@@ -237,28 +218,38 @@
       0%{transform:rotateX(90deg);opacity:0}
       100%{transform:rotateX(0deg);opacity:1}
     }
-
-    .flip-bracket{
-      color:#299bff;
-      font-size:1.12em;
+    .why-entry-suffix{
+      font-size:clamp(30px,4.4vw,64px);
+      letter-spacing:-.045em;
+    }
+    .why-line-2{
+      margin-top:13px;
+      font-size:clamp(18px,2.25vw,32px);
+      color:#dcecff;
+      letter-spacing:.01em;
+    }
+    .why-line-3{
+      margin-top:11px;
+      font-size:clamp(16px,1.7vw,24px);
+      color:#8fa8c1;
+      font-weight:600;
+      letter-spacing:.025em;
+    }
+    .why-line-4{
+      margin-top:7px;
+      font-size:clamp(12px,1.12vw,17px);
+      color:#5fc0ff;
+      text-transform:uppercase;
+      letter-spacing:.24em;
       font-weight:700;
     }
-    .why-subline{
-      margin-top:32px;
-      color:#8fa8c1;
-      font-family:"Courier New",Courier,monospace;
-      font-size:clamp(10px,1vw,14px);
-      letter-spacing:.28em;
-      text-transform:uppercase;
-    }
     .why-divider{
-      width:78px;
+      width:82px;
       height:2px;
-      margin:24px auto 0;
+      margin:25px auto 0;
       background:#1990ff;
       box-shadow:0 0 14px rgba(25,144,255,.55);
     }
-
     @media (prefers-reduced-motion:reduce){
       .flip-word.flip-out,.flip-word.flip-in{animation:none!important}
     }
@@ -267,7 +258,7 @@
     @media (max-width:760px){
       .hero-inner{min-height:520px}
       .hero-buttons{left:0;right:0;justify-content:center}
-      .why-line{gap:.22em}
+      .why-entry-line{font-size:clamp(14px,4.3vw,28px)}
       .flip-window{width:17em;min-width:17em}
     }
 
@@ -476,20 +467,18 @@
         <a class="btn btn-outline" href="#about">About Engineering Review</a>
       </div>
 
-      <div class="why-quote" aria-label="Finding Out Why — Rome, Rocket, Aircraft, High-Speed Rail, Nuclear Reactor, Submarine, Power Plant — was not built in a day">
-        <div class="why-line">
-          <span class="why-quote-mark">“</span>
-          <span class="why-fixed">Finding Out Why</span>
-          <span class="flip-bracket">[</span>
-          <span class="flip-window">
-            <span class="flip-word" id="flipWord">Rome</span>
+      <div class="why-quote"
+           aria-label="ROME was not built in a day. Finding out what it took. The science behind the engineering.">
+        <div class="why-entry-line">
+          <span class="flip-window" aria-live="polite">
+            <span class="flip-word" id="flipWord>ROME</span>
           </span>
-          <span class="flip-bracket">]</span>
-          <span class="why-fixed">was not built in a day</span>
-          <span class="why-quote-mark">”</span>
+          <span class="why-entry-suffix">was not built in a day.</span>
         </div>
 
-        <div class="why-subline">Ideas. Science. Real-World Impact.</div>
+        <div class="why-line-2">Finding out what it took.</div>
+        <div class="why-line-3">The science behind the engineering.</div>
+        <div class="why-line-4">Ideas. Science. Real-World Impact.</div>
         <div class="why-divider"></div>
       </div>
 
@@ -655,32 +644,59 @@
 <script>
   (() => {
     const words = [
-      "Rome",
-      "Rocket",
-      "Aircraft",
-      "High-Speed Rail",
-      "Nuclear Reactor",
-      "Submarine",
-      "Power Plant"
+      "ROME",
+      "ROCKET",
+      "AIRCRAFT",
+      "HIGH-SPEED RAIL",
+      "NUCLEAR REACTOR",
+      "SUBMARINE",
+      "POWER PLANT"
     ];
 
     const el = document.getElementById("flipWord");
     if (!el) return;
 
-    const line = document.querySelector(".why-line");
+    const entryLine = document.querySelector(".why-entry-line");
     const quote = document.querySelector(".why-quote");
+    const flipWindow = document.querySelector(".flip-window");
+
+    function sizeFlipWindowToLongestEntry() {
+      if (!flipWindow) return;
+
+      const probe = document.createElement("span");
+      probe.style.position = "absolute";
+      probe.style.visibility = "hidden";
+      probe.style.whiteSpace = "nowrap";
+      probe.style.fontFamily = '"Courier New","Courier",monospace';
+      probe.style.fontWeight = "700";
+      probe.style.fontSize = getComputedStyle(document.getElementById("flipWord")).fontSize;
+      probe.textContent = words.reduce((longest, word) =>
+        word.length > longest.length ? word : longest, "");
+
+      document.body.appendChild(probe);
+      const longestWidth = Math.ceil(probe.getBoundingClientRect().width);
+      probe.remove();
+
+      const horizontalPadding = 36; // balanced space on both sides
+      const maxWidth = Math.max(210, Math.min(longestWidth + horizontalPadding, window.innerWidth * 0.78));
+      flipWindow.style.width = `${maxWidth}px`;
+      flipWindow.style.minWidth = `${maxWidth}px`;
+    }
 
     function fitQuoteLine() {
-      if (!line || !quote) return;
-      line.style.transform = "scaleX(1)";
-      line.style.transformOrigin = "center center";
+      if (!entryLine || !quote) return;
+
+      sizeFlipWindowToLongestEntry();
+
+      entryLine.style.transform = "scaleX(1)";
+      entryLine.style.transformOrigin = "center center";
 
       const available = quote.clientWidth;
-      const needed = line.scrollWidth;
+      const needed = entryLine.scrollWidth;
 
       if (needed > available && available > 0) {
-        const scale = Math.max(0.62, available / needed);
-        line.style.transform = `scaleX(${scale})`;
+        const scale = Math.max(0.68, available / needed);
+        entryLine.style.transform = `scaleX(${scale})`;
       }
     }
 
