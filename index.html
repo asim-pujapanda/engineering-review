@@ -754,7 +754,6 @@
     const entryLine = document.querySelector(".why-entry-line");
     const quote = document.querySelector(".why-quote");
     const flipWindow = document.querySelector(".flip-window");
-    const el = document.getElementById("flipWord");
 
     function sizeFlipWindowAndLine() {
       if (!entryLine || !quote || !flipWindow || !el) return;
@@ -821,7 +820,7 @@
         el.classList.remove("flip-out");
         void el.offsetWidth;
         el.classList.add("flip-in");
-        requestAnimationFrame(sizeFlipWindow);
+        requestAnimationFrame(sizeFlipWindowAndLine);
       }, 480);
     }
 
