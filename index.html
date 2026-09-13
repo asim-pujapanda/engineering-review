@@ -157,22 +157,22 @@
 
     /* Editorial flip quote */
     .why-quote{
-      width:100%;
-      margin-left:auto;
-      margin-right:auto;
-      padding:54px 64px 46px;
+      width:min(94%,1360px);
+      margin:0 auto;
+      padding:48px 56px 42px;
       box-sizing:border-box;
       text-align:center;
       font-family:"Courier New","Courier",monospace;
-      font-weight:700;
-      color:#0a1d34;
       background:#ffffff;
-      border:1px solid rgba(17,44,72,.10);
-      border-radius:12px;
-      box-shadow:0 16px 44px rgba(0,0,0,.13);
-      user-select:none;
-      transform:translateY(8px);
+      border:1px solid rgba(9,38,68,.10);
+      border-radius:14px;
+      box-shadow:0 18px 46px rgba(4,24,45,.13);
+      color:#0a1d34;
       overflow:hidden;
+    }
+
+    .why-entry-block{
+      width:100%;
     }
 
     .why-entry-line{
@@ -182,42 +182,41 @@
       width:max-content;
       max-width:100%;
       margin:0 auto;
-      min-width:0;
-      line-height:1;
+      box-sizing:border-box;
+      gap:12px;
       white-space:nowrap;
-      gap:14px;
-      overflow:hidden;
-      --entry-font-size:46px;
-      --suffix-font-size:27px;
+      line-height:1;
+      transform:translateX(-42px);
     }
 
     .flip-window{
-      grid-column:2;
       position:relative;
       display:flex;
       align-items:center;
       justify-content:center;
-      width:auto;
-      min-width:0;
-      height:1.78em;
-      margin:0;
+      flex:0 0 auto;
+      height:52px;
       padding:0 18px;
       box-sizing:border-box;
-      border:1px solid rgba(22,135,255,.72);
+      border:1px solid #168cff;
       border-radius:6px;
       background:#ffffff;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 3px 14px rgba(17,62,105,.09);
       color:#1687ff;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.98),
+        0 5px 18px rgba(18,140,255,.10);
       overflow:hidden;
-      perspective:700px;
+      perspective:900px;
     }
 
     .flip-window:before{
       content:"";
       position:absolute;
-      left:0;right:0;top:50%;
+      left:0;
+      right:0;
+      top:50%;
       height:1px;
-      background:rgba(22,135,255,.20);
+      background:rgba(18,140,255,.19);
       z-index:4;
       pointer-events:none;
     }
@@ -230,85 +229,119 @@
       line-height:1;
       transform-origin:50% 50%;
       font-family:"Courier New","Courier",monospace;
-      font-size:var(--entry-font-size);
+      font-size:40px;
       font-weight:700;
       letter-spacing:-.025em;
       text-shadow:0 0 7px rgba(18,140,255,.10);
     }
 
-    .flip-word.flip-out{animation:flipOut .48s cubic-bezier(.55,.05,.68,.19) forwards}
-    .flip-word.flip-in{animation:flipIn .48s cubic-bezier(.22,.61,.36,1) forwards}
+    .flip-word.flip-out{
+      animation:flipOut .48s cubic-bezier(.55,.05,.68,.19) forwards;
+    }
+
+    .flip-word.flip-in{
+      animation:flipIn .48s cubic-bezier(.22,.61,.36,1) forwards;
+    }
 
     @keyframes flipOut{
       0%{transform:rotateX(0deg);opacity:1}
       100%{transform:rotateX(-90deg);opacity:0}
     }
+
     @keyframes flipIn{
       0%{transform:rotateX(90deg);opacity:0}
       100%{transform:rotateX(0deg);opacity:1}
     }
 
     .why-entry-suffix{
-      min-width:0;
-      text-align:left;
-      font-size:var(--suffix-font-size);
+      flex:0 0 auto;
+      font-size:28px;
+      line-height:1;
       font-weight:700;
       color:#0a1d34;
-      letter-spacing:-.025em;
+      letter-spacing:-.02em;
       white-space:nowrap;
     }
 
     .why-line-2{
-      margin-top:18px;
-      font-size:clamp(18px,2.0vw,30px);
+      margin-top:28px;
+      font-size:26px;
+      line-height:1.15;
       color:#102744;
-      letter-spacing:.005em;
+      letter-spacing:.01em;
     }
 
     .why-line-3{
       margin-top:12px;
-      font-size:clamp(16px,1.55vw,23px);
+      font-size:20px;
+      line-height:1.25;
       color:#49657f;
       font-weight:600;
-      letter-spacing:.02em;
+      letter-spacing:.015em;
     }
 
     .why-line-4{
-      margin-top:8px;
-      font-size:clamp(12px,1.08vw,16px);
+      margin-top:13px;
+      font-size:14px;
+      line-height:1.2;
       color:#1687ff;
       text-transform:uppercase;
-      letter-spacing:.18em;
+      letter-spacing:.16em;
       font-weight:700;
     }
 
     .why-divider{
       width:82px;
       height:2px;
-      margin:25px auto 0;
+      margin:24px auto 0;
       background:#1687ff;
-      box-shadow:0 0 14px rgba(25,144,255,.55);
+      box-shadow:0 0 14px rgba(25,144,255,.45);
     }
 
     @media (max-width:700px){
       .why-quote{
-        width:96%;
+        width:94%;
         padding:32px 12px 29px;
       }
+
       .why-entry-line{
         width:100%;
+        max-width:100%;
         gap:7px;
-        --entry-font-size:28px;
-        --suffix-font-size:16px;
+        transform:none;
+        overflow:hidden;
       }
+
       .flip-window{
-        flex:0 0 auto;
+        height:44px;
         padding-left:12px;
         padding-right:12px;
       }
+
+      .flip-word{
+        font-size:31px;
+      }
+
       .why-entry-suffix{
-        flex:0 1 auto;
-        font-size:var(--suffix-font-size);
+        font-size:18px;
+      }
+
+      .why-line-2{
+        margin-top:22px;
+        font-size:clamp(18px,4.6vw,25px);
+      }
+
+      .why-line-3{
+        font-size:clamp(15px,3.8vw,20px);
+      }
+
+      .why-line-4{
+        font-size:clamp(10px,2.7vw,14px);
+        letter-spacing:.12em;
+      }
+
+      .why-divider{
+        margin-top:21px;
       }
     }
 
@@ -529,16 +562,18 @@
 
       <div class="why-quote"
            aria-label="ROME was not built in a day. Finding out what it took ... Exploring the science behind the engineering.">
-        <div class="why-entry-line">
-          <span class="flip-window" aria-live="polite">
-            <span class="flip-word" id="flipWord">ROME</span>
-          </span>
-          <span class="why-entry-suffix">was not built in a day.</span>
+        <div class="why-entry-block">
+          <div class="why-entry-line">
+            <div class="flip-window" aria-live="polite">
+              <span class="flip-word" id="flipWord">ROME</span>
+            </div>
+            <div class="why-entry-suffix">was not built in a day.</div>
+          </div>
         </div>
 
         <div class="why-line-2">Finding out what it took ...</div>
         <div class="why-line-3">Exploring the science behind the engineering.</div>
-        <div class="why-line-4">Ideas. Science. Real-World Impact.</div>
+        <div class="why-line-4">Ideas. Explore. Science. Real-World Impact.</div>
         <div class="why-divider"></div>
       </div>
 
@@ -719,67 +754,55 @@
     const entryLine = document.querySelector(".why-entry-line");
     const quote = document.querySelector(".why-quote");
     const flipWindow = document.querySelector(".flip-window");
+    const el = document.getElementById("flipWord");
 
-    const BASE_ENTRY_SIZE = 46;
-    const BASE_SUFFIX_SIZE = 27;
+    function sizeFlipWindowAndLine() {
+      if (!entryLine || !quote || !flipWindow || !el) return;
 
-    function measureLongestWord(fontSize) {
-      if (!el) return 0;
+      const mobile = window.innerWidth <= 700;
+      const entrySize = mobile ? 31 : 40;
+      const suffixSize = mobile ? 18 : 28;
+
+      entryLine.style.setProperty("--entry-size", `${entrySize}px`);
+      entryLine.style.setProperty("--suffix-size", `${suffixSize}px`);
+      el.style.fontSize = `${entrySize}px`;
+      flipWindow.style.height = `${mobile ? 44 : 52}px`;
+
       const probe = document.createElement("span");
-      const style = getComputedStyle(el);
-
       probe.style.position = "absolute";
       probe.style.visibility = "hidden";
       probe.style.whiteSpace = "nowrap";
       probe.style.fontFamily = '"Courier New","Courier",monospace';
       probe.style.fontWeight = "700";
-      probe.style.fontSize = `${fontSize}px`;
-      probe.style.letterSpacing = style.letterSpacing;
-      probe.textContent = words.reduce((longest, word) =>
-        word.length > longest.length ? word : longest, "");
+      probe.style.fontSize = `${entrySize}px`;
+      probe.style.letterSpacing = getComputedStyle(el).letterSpacing;
+      probe.textContent = words.reduce(
+        (longest, word) => word.length > longest.length ? word : longest,
+        ""
+      );
 
       document.body.appendChild(probe);
-      const width = Math.ceil(probe.getBoundingClientRect().width);
+      const longestWidth = Math.ceil(probe.getBoundingClientRect().width);
       probe.remove();
-      return width;
-    }
 
-    function fitQuoteComposition() {
-      if (!entryLine || !quote || !flipWindow) return;
-
-      let entrySize = BASE_ENTRY_SIZE;
-      let suffixSize = BASE_SUFFIX_SIZE;
-
-      entryLine.style.setProperty("--entry-font-size", `${entrySize}px`);
-      entryLine.style.setProperty("--suffix-font-size", `${suffixSize}px`);
-
-      const longestWidth = measureLongestWord(entrySize);
-      const boxWidth = longestWidth + 36;
+      const boxWidth = longestWidth + (mobile ? 28 : 36);
       flipWindow.style.width = `${boxWidth}px`;
       flipWindow.style.minWidth = `${boxWidth}px`;
 
-      const available = quote.clientWidth - 70;
-      let needed = entryLine.scrollWidth;
+      entryLine.style.transform = "translateX(-42px)";
+
+      const available = quote.clientWidth - 32;
+      const needed = entryLine.scrollWidth;
 
       if (needed > available && available > 0) {
-        const scale = Math.max(0.74, available / needed);
-        entrySize = Math.floor(entrySize * scale);
-        suffixSize = Math.floor(suffixSize * scale);
-
-        entryLine.style.setProperty("--entry-font-size", `${entrySize}px`);
-        entryLine.style.setProperty("--suffix-font-size", `${suffixSize}px`);
-
-        const resizedLongestWidth = measureLongestWord(entrySize);
-        const resizedBoxWidth = resizedLongestWidth + 36;
-        flipWindow.style.width = `${resizedBoxWidth}px`;
-        flipWindow.style.minWidth = `${resizedBoxWidth}px`;
+        const scale = Math.max(0.72, available / needed);
+        entryLine.style.transform = `translateX(-42px) scaleX(${scale})`;
+        entryLine.style.transformOrigin = "center center";
       }
-
-      entryLine.style.transform = "none";
     }
 
-    fitQuoteComposition();
-    window.addEventListener("resize", fitQuoteComposition);
+    sizeFlipWindowAndLine();
+    window.addEventListener("resize", sizeFlipWindowAndLine);
 
     let index = 0;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -798,7 +821,7 @@
         el.classList.remove("flip-out");
         void el.offsetWidth;
         el.classList.add("flip-in");
-        requestAnimationFrame(fitQuoteComposition);
+        requestAnimationFrame(sizeFlipWindow);
       }, 480);
     }
 
